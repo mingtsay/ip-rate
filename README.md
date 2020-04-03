@@ -10,8 +10,8 @@ var Koa = require('koa')
 
 var app = new Koa()
 app.use(ipRate({
-  filter: function (content_type) {
-  	return /text/i.test(content_type)
+  filter: function (ip) {
+  	return !/^(fe80::|10.0.)/i.test(ip)
   },
   threshold: 2000
 }))
@@ -21,7 +21,7 @@ app.use(ipRate({
 
 ### filter
 
-An optional function that checks the response content type to decide whether to limit.
+An optional function that checks the remote address to decide whether to limit.
 By default, it limits all requests.
 
 ### threshold
@@ -29,15 +29,19 @@ By default, it limits all requests.
 Maximum allowed IPs per hour.
 Default `1000` IPs or `1k`.
 
-## Manually turning limitation on and off
+## Remote Address
 
-You can always enable limitation by setting `this.limit = true`.
-You can always disable limitation by setting `this.limit = false`.
-This bypasses the filter check.
-
+If you are running your app behind nginx, enable `app.proxy` in your app:
 ```js
-app.use((ctx, next) => {
-  ctx.limit = true
-  ctx.body = fs.createReadStream(file)
-})
+app.proxy = true
+```
+
+Also set the `X-Forwarded-For` header in nginx:
+
+```
+location / {
+    proxy_pass http://app;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
 ```

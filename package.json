@@ -10,7 +10,9 @@
   },
   "license": "MIT",
   "repository": "mingtsay/ip-rate",
-  "dependencies": {},
+  "dependencies": {
+    "numeral": "^2.0.6"
+  },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
