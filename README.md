@@ -11,7 +11,7 @@ var Koa = require('koa')
 var app = new Koa()
 app.use(ipRate({
   filter: function (ip) {
-  	return !/^(fe80::|10.0.)/i.test(ip)
+    return !/^(fe80::|10.0.)/i.test(ip)
   },
   threshold: 2000
 }))
