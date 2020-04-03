@@ -5,16 +5,16 @@ IP rate limitation middleware for Koa
 ## Example
 
 ```js
-var ipRate = require('ip-rate');
-var Koa = require('koa');
+var ipRate = require('ip-rate')
+var Koa = require('koa')
 
-var app = new Koa();
+var app = new Koa()
 app.use(ipRate({
   filter: function (content_type) {
   	return /text/i.test(content_type)
   },
   threshold: 2000
-}));
+}))
 ```
 
 ## Options
@@ -37,7 +37,7 @@ This bypasses the filter check.
 
 ```js
 app.use((ctx, next) => {
-  ctx.limit = true;
-  ctx.body = fs.createReadStream(file);
+  ctx.limit = true
+  ctx.body = fs.createReadStream(file)
 })
 ```
