@@ -1,0 +1,40 @@
+{
+  "name": "ip-rate",
+  "description": "IP rate limitation middleware for koa",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ming Tsay",
+    "email": "mt@moztw.org",
+    "url": "https://mingtsay.tw",
+    "telegram": "https://t.me/mingtsay"
+  },
+  "license": "MIT",
+  "repository": "mingtsay/ip-rate",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^25.2.7",
+    "koa": "^2.11.0",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "eslint": "eslint --ignore-path .gitignore .",
+    "test": "jest --forceExit"
+  },
+  "files": [
+    "index.js",
+    "LICENSE",
+    "HISTORY.md"
+  ],
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  }
+}
