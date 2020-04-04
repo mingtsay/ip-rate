@@ -29,15 +29,17 @@ module.exports = (options = {}) => {
   const store = options.store || new MemoryStore(windowMs)
 
   // ensure the store has required methods
-  if (typeof store.increment !== 'function') throw new Error('The storage is not valid.')
+  if (typeof store.increment !== 'function') {
+    throw new Error('The storage is not valid.')
+  }
 
-  return (ctx, next) => {
-    if (filter(ctx)) return next()
+  return async (ctx, next) => {
+    if (!filter(ctx)) return await next()
 
     const ip = ctx.ip
 
-    store.increment(ip, (err, current, resetTime) => {
-      if (err) return next(err)
+    store.increment(ip, async (err, current, resetTime) => {
+      if (err) return await next(err)
 
       ctx.ipRateLimit = {
         threshold: threshold,
@@ -51,10 +53,10 @@ module.exports = (options = {}) => {
 
       if (current > threshold) {
         ctx.set('Retry-After', resetTime.toUTCString())
-        ctx.throw(429, 'Too Many Requests')
+        ctx.status = 429
       }
 
-      next()
+      await next()
     })
   }
 }

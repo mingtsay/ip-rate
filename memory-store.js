@@ -14,7 +14,7 @@ const calcNextResetTime = windowMs => {
  * @api public
  */
 
-module.exports = (windowMs) => {
+function MemoryStore (windowMs) {
   let hits = {}
   let resetTime = calcNextResetTime(windowMs)
 
@@ -36,3 +36,5 @@ module.exports = (windowMs) => {
 
   if (interval.unref) interval.unref()
 }
+
+module.exports = MemoryStore
